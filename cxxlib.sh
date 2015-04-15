@@ -9,7 +9,7 @@
 
 # Creation of the name of the class
 CLASS=$2
-CLASS=`echo ${CLASS:0:1} | tr  '[a-z]' '[A-Z]'`${CLASS:1}
+CLASS=`echo ${CLASS:0:1} | tr '[a-z]' '[A-Z]'`${CLASS:1}
 
 # filesystem creation
 mkdir $1 $1/include $1/source $1/build
@@ -32,6 +32,7 @@ echo '/*
 
 #include <iostream>
 #include <cmath>
+#include <vector>
 #include <cstdlib>
 #include <time.h>
 #include <ctype.h>
@@ -72,23 +73,37 @@ echo '/*
 
 #include "'$2'.h"
 
-'$CLASS'::'$CLASS '()
+
+template <int dim, int spacedim>
+'$CLASS'<dim,spacedim>::'$CLASS '()
 :
 (),
 ()
 {}
 
 
-'$CLASS'::~'$CLASS '()
+template <int dim, int spacedim>
+'$CLASS'<dim,spacedim>::~'$CLASS '()
 {}
 
 
-void '$CLASS'::print(std::ostream &out) const
+template <int dim, int spacedim>
+void '$CLASS'<dim,spacedim>::print(std::ostream &out) const
 {
 	out << std::endl;
 
 	return;
-}' >> $1/source/$2.cc
+}
+
+
+// explicit instantiations
+template class '$CLASS'<1,1>;
+template class '$CLASS'<1,2>;
+template class '$CLASS'<2,2>;
+template class '$CLASS'<1,3>;
+template class '$CLASS'<2,3>;
+template class '$CLASS'<3,3>;
+' >> $1/source/$2.cc
 
 
 # header file of the class
@@ -101,7 +116,10 @@ echo '/*
 #define __'$2'__
 
 #include <iostream>
+#include <vector>
 
+
+template <int dim, int spacedim=dim>
 class '$CLASS'
 {
 public:
