@@ -8,8 +8,14 @@
 # $PROJECT_NAME is the name of the project
 # $CLASSES is the name of the classes (in lower case)
 
-source "include/utilities.sh"
-source "include/cxx_project.sh"
+CXXLIB_CREATOR_PATH=$(echo -e $(readlink `which cxxlib`) | sed "s/cxxlib.sh//")
+if [ -f $CXXLIB_CREATOR_PATH ]
+then
+    CXXLIB_CREATOR_PATH="./"
+fi
+
+source "$CXXLIB_CREATOR_PATH/include/utilities.sh"
+source "$CXXLIB_CREATOR_PATH/include/cxx_project.sh"
 
 MAKE_PROJECT_CHECK=false
 
@@ -42,12 +48,14 @@ do
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
+        echo -e "CXXLIB_CREATOR_PATH=$PWD" > include/params.prm
         sudo ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> log/getops.log 
         ;;
     L)  USR_BIN_PATH="$OPTARG"
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
+        echo -e "CXXLIB_CREATOR_PATH=$PWD" > include/params.prm
         sudo ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> log/getops.log 
         ;;
     a)  AUTHOR="$OPTARG"
