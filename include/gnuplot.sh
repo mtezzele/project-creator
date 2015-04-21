@@ -3,7 +3,7 @@
 function plot()
 {
 	gnuplot -e "
-		set term png;
+		set term pdf;
 		set output \"${output}\"; 
 		set ylabel \"${y_label}\";
 		set xlabel \"${x_label}\";

@@ -8,6 +8,6 @@ x_label="x"
 xxrange="[0.2:20]"
 yyrange="[0:12]"
 title="sqrt with Newton"
-output="sqrt_00.png"
-what="	\"newton.dat\" using  2:3 title 'sqrt' with lines "
+output="sqrt_00.pdf"
+what="	$file using  2:3 title 'sqrt' with lines "
 plot
