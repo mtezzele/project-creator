@@ -11,7 +11,9 @@
 source "include/utilities.sh"
 source "include/cxx_project.sh"
 
-
+if [ ! -d "log" ]; then
+    mkdir "log"
+fi
 
 while getopts lL:mh name
 do
