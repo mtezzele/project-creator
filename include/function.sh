@@ -8,25 +8,34 @@ function make_class
 	echo "
 	/*$4
 	 */
+
 	#include <iostream>
 	#include <vector>
 	#include <cmath>
-	#include \"$2.h\"
+	#include \"$1.h\"
+	
+
 	template <int dim, int spacedim>
 	$CLASS<dim,spacedim>::$CLASS ()
 	:
 	(),
 	()
 	{}
+
+
 	template <int dim, int spacedim>
 	$CLASS<dim,spacedim>::~$CLASS ()
 	{}
+	
+
 	template <int dim, int spacedim>
 	void $CLASS<dim,spacedim>::print(std::ostream &out) const
 	{
 		out << std::endl;
 		return;
 	}
+	
+
 	// explicit instantiations
 	template class $CLASS<1,1>;
 	template class $CLASS<1,2>;
@@ -41,10 +50,15 @@ function make_class
 	echo "/*
 	 $4
 	 */
-	#ifndef __$2__
-	#define __$2__
+	
+	#ifndef __$1__
+	#define __$1__
+
+	
 	#include <iostream>
 	#include <vector>
+	
+
 	template <int dim, int spacedim=dim>
 	class $CLASS
 	{
@@ -56,6 +70,7 @@ function make_class
 	private:
 		
 	};
+	
 	#endif
 	" >> "$3/$1.h"
 }

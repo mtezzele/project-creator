@@ -8,7 +8,7 @@
 # $PROJECT_NAME is the name of the project
 # $CLASSES is the name of the classes (in lower case)
 
-source "include/function.sh"
+source include/function.sh
 
 # Creation of the name of the class
 echo 
@@ -50,6 +50,7 @@ echo -e "/*
 #include <sys/time.h>
 
 $INCLUDE
+
 
 /* Returns elapsed seconds past from the last call to timer rest */
 double cclock()
