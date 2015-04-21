@@ -8,29 +8,30 @@
 # $PROJECT_NAME is the name of the project
 # $CLASSES is the name of the classes (in lower case)
 
-source "include/class.sh"
-source "include/cmake.sh"
-source "include/main.sh"
-
-# Creation of the name of the class
-echo 
-read -e -p "Author: ................. " AUTHOR
-read -e -p "Name of the project: .... " PROJECT_NAME
-read -e -p "Name of the class: ...... " CLASSES
-
-DATE=`date "+date: %Y-%m-%d"` 
-TIME=`date "+time: %H:%M:%S"`
-# filesystem creation
-mkdir $PROJECT_NAME $PROJECT_NAME/include $PROJECT_NAME/source $PROJECT_NAME/build
-
-INCLUDE=`for CLASS in $CLASSES; do echo "#include \"$CLASS.h\""; done`
-HEADER=`echo -e "\n\t * Author: $AUTHOR\n\t * $DATE\n\t * $TIME\n"`
+source "include/utilities.sh"
+source "include/cxx_project.sh"
 
 
-make_main "$HEADER" "$PROJECT_NAME"
-for CLASS in $CLASSES
+
+while getopts lL:m name
 do
-    make_class "$CLASS" "$PROJECT_NAME/source" "$PROJECT_NAME/include" "$HEADER"
+    case $name in    
+    l)  USR_BIN_PATH="/usr/local/bin"
+        echo -e "$BAR"
+        echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
+        echo -e "$BAR"
+        sudo ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> log/getops.log
+        aval="$OPTARG";;
+    L)  USR_BIN_PATH="$OPTARG"
+        echo -e "$BAR"
+        echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
+        echo -e "$BAR"
+        sudo ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> log/getops.log
+        aval="$OPTARG";;
+    m)  make_project  
+        bflag=1
+        bval="$OPTARG";;
+    ?)  printf "Usage: %s: [-l] [-m] \n" $0
+        exit 2;;
+    esac
 done
-make_cmake "$PROJECT_NAME"
-
