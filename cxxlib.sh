@@ -67,10 +67,10 @@ do
         ;;
     m)  MAKE_PROJECT_CHECK=true
         ;;
-    # :)  printf "Usage: %s: [-l] [-m] \n" $0
-    #     exit 2 ;;
-    # \?)  printf "Usage: %s: [-l] [-m] \n" $0
-    #     exit 2 ;;
+    :)  printf "Usage: %s: [-l] [-m] \n" $0
+        exit 2 ;;
+    \?)  printf "Usage: %s: [-l] [-m] \n" $0
+        exit 2 ;;
     esac
 done
 
