@@ -49,14 +49,12 @@ do
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
-        echo -e "CXXLIB_CREATOR_PATH=$PWD" > include/params.prm
         ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> _log/getops.log 
         ;;
     L)  USR_BIN_PATH="$OPTARG"
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
-        echo -e "CXXLIB_CREATOR_PATH=$PWD" > include/params.prm
         ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> _log/getops.log 
         ;;
     a)  AUTHOR="$OPTARG"
