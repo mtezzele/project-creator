@@ -1,22 +1,31 @@
 #!/bin/bash
 
-# Author: Marco Tezzele
+# Authors: Marco Tezzele and Mauro Bardelloni
 # Last edit: 29-03-2015
 
 # It creates a complete filesystem for a c++ project.
-# $1 is the name of the project
-# $2 is the name of the first class (in lower case)
+# $AUTHOR is the author of the project
+# $PROJECT_NAME is the name of the project
+# $CLASSES is the name of the classes (in lower case)
+
+source "include/function.sh"
 
 # Creation of the name of the class
-CLASS=$2
-CLASS=`echo ${CLASS:0:1} | tr '[a-z]' '[A-Z]'`${CLASS:1}
+echo 
+read -e -p "Author: ................. " AUTHOR
+read -e -p "Name of the project: .... " PROJECT_NAME
+read -e -p "Name of the class: ...... " CLASSES
 
+DATE=`date "+date: %Y-%m-%d"` 
+TIME=`date "+time: %H:%M:%S"`
 # filesystem creation
-mkdir $1 $1/include $1/source $1/build
+mkdir $PROJECT_NAME $PROJECT_NAME/include $PROJECT_NAME/source $PROJECT_NAME/build
 
+INCLUDE=`for CLASS in $CLASSES; do echo "#include \"$CLASS.h\""; done`
+HEADER=`echo -e "\n 	* Author: $AUTHOR\n\t * $DATE\n\t * $TIME\n"`
 
 # main file
-echo '/*
+echo -e "/*
  * Usage:
  * cd build
  * cmake ..
@@ -25,8 +34,9 @@ echo '/*
  *
  * Description
  *
- * Author: Marco Tezzele
- * Last edit: 00-00-201
+ * Author: $AUTHOR
+ * $DATE
+ * $TIME
  */
 
 
@@ -39,8 +49,7 @@ echo '/*
 #include <sys/types.h>
 #include <sys/time.h>
 
-
-#include "'$2'.h"
+$INCLUDE
 
 /* Returns elapsed seconds past from the last call to timer rest */
 double cclock()
@@ -58,106 +67,35 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
-' >> $1/source/main.cc
+" >> $PROJECT_NAME/source/main.cc
 
-
-# source file of the class
-echo '/*
- * Author: Marco Tezzele
- * Last edit: 00-00-201
- */
-
-#include <iostream>
-#include <vector>
-#include <cmath>
-
-#include "'$2'.h"
-
-
-template <int dim, int spacedim>
-'$CLASS'<dim,spacedim>::'$CLASS '()
-:
-(),
-()
-{}
-
-
-template <int dim, int spacedim>
-'$CLASS'<dim,spacedim>::~'$CLASS '()
-{}
-
-
-template <int dim, int spacedim>
-void '$CLASS'<dim,spacedim>::print(std::ostream &out) const
-{
-	out << std::endl;
-
-	return;
-}
-
-
-// explicit instantiations
-template class '$CLASS'<1,1>;
-template class '$CLASS'<1,2>;
-template class '$CLASS'<2,2>;
-template class '$CLASS'<1,3>;
-template class '$CLASS'<2,3>;
-template class '$CLASS'<3,3>;
-' >> $1/source/$2.cc
-
-
-# header file of the class
-echo '/*
- * Author: Marco Tezzele
- * Last edit: 00-00-201
- */
-
-#ifndef __'$2'__
-#define __'$2'__
-
-#include <iostream>
-#include <vector>
-
-
-template <int dim, int spacedim=dim>
-class '$CLASS'
-{
-public:
-	'$CLASS '();
-	~'$CLASS '();
-	
-	void print(std::ostream &out = std::cout) const;
-
-private:
-	
-};
-
-#endif
-' >> $1/include/$2.h
-
+for CLASS in $CLASSES
+do
+    make_class "$CLASS" "$PROJECT_NAME/source" "$PROJECT_NAME/include" "$HEADER"
+done
 
 # cmake file with MPI and OMP
-echo 'cmake_minimum_required(VERSION 2.8)
+echo -e 'cmake_minimum_required(VERSION 2.8)
 
-project ('$1')
+project ('$PROJECT_NAME')
 file(GLOB cc_files source/*.cc)
 include_directories(include)
-add_executable('$1' ${cc_files})
+add_executable('$PROJECT_NAME' ${cc_files})
 
 
 
 find_package(MPI REQUIRED)
 include_directories(${MPI_INCLUDE_PATH})
 
-target_link_libraries('$1' ${MPI_LIBRARIES})
+target_link_libraries('$PROJECT_NAME' ${MPI_LIBRARIES})
 
 if(MPI_COMPILE_FLAGS)
-  set_target_properties('$1' PROPERTIES
+  set_target_properties('$PROJECT_NAME' PROPERTIES
     COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")
 endif()
 
 if(MPI_LINK_FLAGS)
-  set_target_properties('$1' PROPERTIES
+  set_target_properties('$PROJECT_NAME' PROPERTIES
     LINK_FLAGS "${MPI_LINK_FLAGS}")
 endif()
 
@@ -170,8 +108,8 @@ endif()
 
 
 add_custom_target(run
-    COMMAND '$1'
-    DEPENDS '$1'
+    COMMAND '$PROJECT_NAME'
+    DEPENDS '$PROJECT_NAME'
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
-)' >> $1/CMakeLists.txt
+)' >> $PROJECT_NAME/CMakeLists.txt
 
