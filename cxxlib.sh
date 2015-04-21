@@ -83,6 +83,8 @@ file(GLOB cc_files source/*.cc)
 include_directories(include)
 add_executable('$PROJECT_NAME' ${cc_files})
 
+set(CMAKE_CXX_FLAGS_DEBUG:STRING=-g -DDEBUG)
+set(CMAKE_CXX_FLAGS_RELEASE:STRING=-O3)
 
 
 find_package(MPI REQUIRED)
@@ -108,9 +110,20 @@ if (OPENMP_FOUND)
 endif()
 
 
-add_custom_target(run
-    COMMAND '$PROJECT_NAME'
-    DEPENDS '$PROJECT_NAME'
-    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
-)' >> $PROJECT_NAME/CMakeLists.txt
+ADD_CUSTOM_TARGET(debug
+  COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Debug ${CMAKE_SOURCE_DIR}
+  COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target all
+  COMMENT "Switch CMAKE_BUILD_TYPE to Debug"
+  )
+
+ADD_CUSTOM_TARGET(release
+  COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Release ${CMAKE_SOURCE_DIR}
+  COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target all
+  COMMENT "Switch CMAKE_BUILD_TYPE to Release"
+  )
+
+ADD_CUSTOM_TARGET(run COMMAND '$PROJECT_NAME'
+  COMMENT "Run with ${CMAKE_BUILD_TYPE} configuration"
+  )
+' >> $PROJECT_NAME/CMakeLists.txt
 
