@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Author: Marco Tezzele
+# Authors: Marco Tezzele and Mauro Bardelloni
 # Last edit: 29-03-2015
 
 # It creates a complete filesystem for a c++ project.
