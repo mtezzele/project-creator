@@ -6,20 +6,23 @@
 # It creates a complete filesystem for a c++ project.
 # $AUTHOR is the author of the project
 # $PROJECT_NAME is the name of the project
-# $CLASS is the name of the first class (in lower case)
+# $CLASSES is the name of the classes (in lower case)
+
+source "include/function.sh"
 
 # Creation of the name of the class
 echo 
 read -e -p "Author: ................. " AUTHOR
 read -e -p "Name of the project: .... " PROJECT_NAME
-read -e -p "Name of the class: ...... " CLASS
+read -e -p "Name of the class: ...... " CLASSES
 
-CLASS=`echo -e ${CLASS:0:1} | tr '[a-z]' '[A-Z]'`${CLASS:1}
+# CLASSES=`echo -e ${CLASSES:0:1} | tr '[a-z]' '[A-Z]'`${CLASSES:1}
 DATE=`date "+date: %Y-%m-%d"` 
 TIME=`date "+time: %H:%M:%S"`
 # filesystem creation
 mkdir $PROJECT_NAME $PROJECT_NAME/include $PROJECT_NAME/source $PROJECT_NAME/build
 
+INCLUDE=`for CLASS in $CLASSES; do echo "#include \"$CLASS.h\""; done`
 
 # main file
 echo -e "/*
@@ -46,8 +49,7 @@ echo -e "/*
 #include <sys/types.h>
 #include <sys/time.h>
 
-
-#include \"$CLASS.h\"
+$INCLUDE
 
 /* Returns elapsed seconds past from the last call to timer rest */
 double cclock()
@@ -67,83 +69,10 @@ int main(int argc, char *argv[])
 }
 " >> $PROJECT_NAME/source/main.cc
 
-
-# source file of the class
-echo -e "/*
- * Author: $AUTHOR
- * Last edit: 00-00-201
- */
-
-#include <iostream>
-#include <vector>
-#include <cmath>
-
-#include \"$CLASS.h\"
-
-
-template <int dim, int spacedim>
-$CLASS<dim,spacedim>::$CLASS ()
-:
-(),
-()
-{}
-
-
-template <int dim, int spacedim>
-$CLASS<dim,spacedim>::~$CLASS ()
-{}
-
-
-template <int dim, int spacedim>
-void $CLASS<dim,spacedim>::print(std::ostream &out) const
-{
-	out << std::endl;
-
-	return;
-}
-
-
-// explicit instantiations
-template class $CLASS<1,1>;
-template class $CLASS<1,2>;
-template class $CLASS<2,2>;
-template class $CLASS<1,3>;
-template class $CLASS<2,3>;
-template class $CLASS<3,3>;
-" >> $PROJECT_NAME/source/$CLASS.cc
-
-
-# header file of the class
-echo -e "/*
- * Author: $AUTHOR
- * $DATE
- * $TIME
- * Last edit: 00-00-201
- */
-
-#ifndef __$CLASS__
-#define __$CLASS__
-
-#include <iostream>
-#include <vector>
-
-
-template <int dim, int spacedim=dim>
-class $CLASS
-{
-public:
-	$CLASS ();
-	~$CLASS ();
-	
-	void print(std::ostream &out = std::cout) const;
-
-private:
-	
-};
-
-#endif
-" >> $PROJECT_NAME/include/$CLASS.h
-
+for CLASS in $CLASSES
+do
+    make_class "$CLASS" "$PROJECT_NAME/source" "$PROJECT_NAME/include"
+done
 
 # cmake file with MPI and OMP
 echo -e 'cmake_minimum_required(VERSION 2.8)
