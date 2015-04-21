@@ -25,25 +25,21 @@ do
         echo -e "\t -L [path] : Create a symbolic link to cxxlib in path"
         echo -e "\t -m        : Create a new project"
         echo -e "$BAR"
-        echo -e "$BAR";;
+        echo -e "$BAR" ;;
     l)  USR_BIN_PATH="/usr/local/bin"
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
-        sudo ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> log/getops.log
-        aval="$OPTARG";;
+        sudo ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> log/getops.log ;;
     L)  USR_BIN_PATH="$OPTARG"
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
-        sudo ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> log/getops.log
-        aval="$OPTARG";;
-    m)  make_project  
-        bflag=1
-        bval="$OPTARG";;
+        sudo ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> log/getops.log ;;
+    m)  make_project;;
     *)  printf "Usage: %s: [-l] [-m] \n" $0
-        exit 2;;
+        exit 2 ;;
     ?)  printf "Usage: %s: [-l] [-m] \n" $0
-        exit 2;;
+        exit 2 ;;
     esac
 done
