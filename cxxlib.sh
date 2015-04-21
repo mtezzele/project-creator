@@ -23,6 +23,7 @@ TIME=`date "+time: %H:%M:%S"`
 mkdir $PROJECT_NAME $PROJECT_NAME/include $PROJECT_NAME/source $PROJECT_NAME/build
 
 INCLUDE=`for CLASS in $CLASSES; do echo "#include \"$CLASS.h\""; done`
+HEADER=`echo -e "\n 	* Author: $AUTHOR\n\t * $DATE\n\t * $TIME\n"`
 
 # main file
 echo -e "/*
@@ -71,7 +72,7 @@ int main(int argc, char *argv[])
 
 for CLASS in $CLASSES
 do
-    make_class "$CLASS" "$PROJECT_NAME/source" "$PROJECT_NAME/include"
+    make_class "$CLASS" "$PROJECT_NAME/source" "$PROJECT_NAME/include" "$HEADER"
 done
 
 # cmake file with MPI and OMP
