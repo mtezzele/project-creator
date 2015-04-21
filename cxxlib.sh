@@ -13,9 +13,17 @@ source "include/cxx_project.sh"
 
 
 
-while getopts lL:m name
+while getopts lL:mh name
 do
-    case $name in    
+    case $name in  
+    h)  echo -e "$BAR"
+        echo -e "$BAR"
+        echo -e " FLAGS:"
+        echo -e "\t -l        : Create a symbolic link to cxxlib in /usr/local/bin"
+        echo -e "\t -L [path] : Create a symbolic link to cxxlib in path"
+        echo -e "\t -m        : Create a new project"
+        echo -e "$BAR"
+        echo -e "$BAR";;
     l)  USR_BIN_PATH="/usr/local/bin"
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
@@ -31,6 +39,8 @@ do
     m)  make_project  
         bflag=1
         bval="$OPTARG";;
+    *)  printf "Usage: %s: [-l] [-m] \n" $0
+        exit 2;;
     ?)  printf "Usage: %s: [-l] [-m] \n" $0
         exit 2;;
     esac
