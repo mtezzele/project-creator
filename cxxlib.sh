@@ -8,7 +8,9 @@
 # $PROJECT_NAME is the name of the project
 # $CLASSES is the name of the classes (in lower case)
 
-source include/function.sh
+source "include/class.sh"
+source "include/cmake.sh"
+source "include/main.sh"
 
 # Creation of the name of the class
 echo 
@@ -22,108 +24,13 @@ TIME=`date "+time: %H:%M:%S"`
 mkdir $PROJECT_NAME $PROJECT_NAME/include $PROJECT_NAME/source $PROJECT_NAME/build
 
 INCLUDE=`for CLASS in $CLASSES; do echo "#include \"$CLASS.h\""; done`
-HEADER=`echo -e "\n 	* Author: $AUTHOR\n\t * $DATE\n\t * $TIME\n"`
-
-# main file
-echo -e "/*
- * Usage:
- * cd build
- * cmake ..
- * make
- * make run
- *
- * Description
- *
- * Author: $AUTHOR
- * $DATE
- * $TIME
- */
+HEADER=`echo -e "\n\t * Author: $AUTHOR\n\t * $DATE\n\t * $TIME\n"`
 
 
-#include <iostream>
-#include <cmath>
-#include <vector>
-#include <cstdlib>
-#include <time.h>
-#include <ctype.h>
-#include <sys/types.h>
-#include <sys/time.h>
-
-$INCLUDE
-
-
-/* Returns elapsed seconds past from the last call to timer rest */
-double cclock()
-{
-    struct timeval tmp;
-    double sec;
-    gettimeofday( &tmp, (struct timezone *)0 );
-    sec = tmp.tv_sec + ((double)tmp.tv_usec)/1000000.0;
-    return sec;
-}
-
-
-int main(int argc, char *argv[])
-{
-
-	return 0;
-}
-" >> $PROJECT_NAME/source/main.cc
-
+make_main "$HEADER" "$PROJECT_NAME"
 for CLASS in $CLASSES
 do
     make_class "$CLASS" "$PROJECT_NAME/source" "$PROJECT_NAME/include" "$HEADER"
 done
-
-# cmake file with MPI and OMP
-echo -e 'cmake_minimum_required(VERSION 2.8)
-
-project ('$PROJECT_NAME')
-file(GLOB cc_files source/*.cc)
-include_directories(include)
-add_executable('$PROJECT_NAME' ${cc_files})
-
-set(CMAKE_CXX_FLAGS_DEBUG:STRING=-g -DDEBUG)
-set(CMAKE_CXX_FLAGS_RELEASE:STRING=-O3)
-
-
-find_package(MPI REQUIRED)
-include_directories(${MPI_INCLUDE_PATH})
-
-target_link_libraries('$PROJECT_NAME' ${MPI_LIBRARIES})
-
-if(MPI_COMPILE_FLAGS)
-  set_target_properties('$PROJECT_NAME' PROPERTIES
-    COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")
-endif()
-
-if(MPI_LINK_FLAGS)
-  set_target_properties('$PROJECT_NAME' PROPERTIES
-    LINK_FLAGS "${MPI_LINK_FLAGS}")
-endif()
-
-
-find_package(OpenMP)
-if (OPENMP_FOUND)
-    set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-endif()
-
-
-ADD_CUSTOM_TARGET(debug
-  COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Debug ${CMAKE_SOURCE_DIR}
-  COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target all
-  COMMENT "Switch CMAKE_BUILD_TYPE to Debug"
-  )
-
-ADD_CUSTOM_TARGET(release
-  COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Release ${CMAKE_SOURCE_DIR}
-  COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target all
-  COMMENT "Switch CMAKE_BUILD_TYPE to Release"
-  )
-
-ADD_CUSTOM_TARGET(run COMMAND '$PROJECT_NAME'
-  COMMENT "Run with ${CMAKE_BUILD_TYPE} configuration"
-  )
-' >> $PROJECT_NAME/CMakeLists.txt
+make_cmake "$PROJECT_NAME"
 
