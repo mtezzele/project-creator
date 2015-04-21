@@ -3,6 +3,7 @@
 function make_class
 {
 	CLASS=$1
+	CLASS=`echo -e ${CLASS:0:1} | tr '[a-z]' '[A-Z]'`${CLASS:1}
 	# source file of the class
 	echo "
 	/*$4

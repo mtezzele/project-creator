@@ -16,7 +16,6 @@ read -e -p "Author: ................. " AUTHOR
 read -e -p "Name of the project: .... " PROJECT_NAME
 read -e -p "Name of the class: ...... " CLASSES
 
-# CLASSES=`echo -e ${CLASSES:0:1} | tr '[a-z]' '[A-Z]'`${CLASSES:1}
 DATE=`date "+date: %Y-%m-%d"` 
 TIME=`date "+time: %H:%M:%S"`
 # filesystem creation
