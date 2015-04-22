@@ -29,7 +29,7 @@ function make_project
 	mkdir $PROJECT_NAME $PROJECT_NAME/include $PROJECT_NAME/source $PROJECT_NAME/build
 
 	INCLUDE=`for CLASS in $CLASSES; do echo "#include \"$CLASS.h\""; done`
-	HEADER=`echo -e "\n\t * Author: $AUTHOR\n\t * $DATE\n\t * $TIME\n"`
+	echo -e "\n\*\n * Author: $AUTHOR\n * $DATE\n * $TIME\n *\ \n\n " > "./template/header_file.tmp"
 
 	make_main "$HEADER" "$PROJECT_NAME"
 	for CLASS in $CLASSES

@@ -5,6 +5,8 @@ function make_class
 	CLASS=$1
 	CLASS=`echo -e ${CLASS:0:1} | tr '[a-z]' '[A-Z]'`${CLASS:1}
 	# source file of the class
+	
+	cat "template/header_file.tmp" 	> "$2/$1.cc"
 	echo "
 	/*$4
 	 */
@@ -46,32 +48,9 @@ function make_class
 	" >> "$2/$1.cc"
 
 
-	# header file of the class
-	echo "/*
-	 $4
-	 */
-	
-	#ifndef __$1__
-	#define __$1__
-
-	
-	#include <iostream>
-	#include <vector>
-	
-
-	template <int dim, int spacedim=dim>
-	class $CLASS
-	{
-	public:
-		$CLASS ();
-		~$CLASS ();
-		
-		void print(std::ostream &out = std::cout) const;
-	private:
-		
-	};
-	
-	#endif
-	" >> "$3/$1.h"
+	cat "template/header_file.tmp" 	> "$3/$1.h"
+							
+	cat "template/class.h" 	| sed "s/##DEF_CLASS##/$1/" \
+							| sed "s/##CLASS##/$CLASS/" >> "$3/$1.h"
 }
 export -f make_class

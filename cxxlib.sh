@@ -83,3 +83,5 @@ then
     make_project "$AUTHOR" "$PROJECT_NAME" "$CLASSES"
     print_report
 fi
+
+rm -f ${CXXLIB_CREATOR_PATH}template/*.tmp
