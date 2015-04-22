@@ -83,9 +83,9 @@ do
         ;;    
     m)  MAKE_PROJECT_CHECK=true
         ;;
-    :)  printf "Usage: %s: [-l] [-L args] [-m] [-h] [-a args] [-p args] [-c args] \n" $0
+    :)  printf "Usage: %s: [-l] [-L args] [-m] [-M] [-h] [-a args] [-p args] [-c args] \n" $0
         exit 2 ;;
-    \?) printf "Usage: %s: [-l] [-L args] [-m] [-h] [-a args] [-p args] [-c args] \n" $0
+    \?) printf "Usage: %s: [-l] [-L args] [-m] [-M] [-h] [-a args] [-p args] [-c args] \n" $0
         exit 2 ;;
     esac
 done

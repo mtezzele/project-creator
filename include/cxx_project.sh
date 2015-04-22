@@ -67,9 +67,8 @@ function make_project
 	else
 		if [ "$4" == "true" ]
 		then
-			rm -rf "$PROJECT_NAME"
+			rm -rf "$PROJECT_NAME/*"
 		fi
-		mkdir "$PROJECT_NAME"
 	fi
 	
 	for DIR in "$PROJECT_NAME/include" "$PROJECT_NAME/source" "$PROJECT_NAME/build"
