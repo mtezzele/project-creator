@@ -11,7 +11,7 @@ function make_class
 	# Source Files:
 	cat "template/header_file.tmp" 	> "$2/$1.cc"
 	cat "template/class.cc" | sed "s/##HEADER##/$1/" \
-							| sed "s/##CLASS##/$CLASS/" >> "$3/$1.h"
+							| sed "s/##CLASS##/$CLASS/" >> "$2/$1.cc"
 
 	# Header files:
 	cat "template/header_file.tmp" 	> "$3/$1.h"
