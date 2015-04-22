@@ -24,7 +24,7 @@ while read -r line
 do
     name=$line
     echo -e "${HIGH_GREEN_COLOR}$line"
-done < "$CXXLIB_CREATOR_PATH/template/title.txt"
+done < "$CXXLIB_CREATOR_PATH/template/title_cxxlib.txt"
 echo -e "\n${HIGH_RED_COLOR}${BAR}${CLOSE_COLOR}\n\n"
 
 MAKE_PROJECT_CHECK=false
