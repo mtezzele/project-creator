@@ -39,31 +39,24 @@ AUTHOR="author"
 PROJECT_NAME="project"
 CLASSES="classes"
 
+if [ -z "$1" ]
+then
+   usage
+   exit
+fi
+
 while getopts ":lL:mMha:p:c:" name
 do
     case $name in  
-    h)  echo -e "$BAR"
-        echo -e "$BAR"
-        echo -e " FLAGS:"
-        echo -e "\t -l          : Create a symbolic link to cxxlib in /usr/local/bin"
-        echo -e "\t -L [path]   : Create a symbolic link to cxxlib in path"
-        echo -e "\t -m          : Create a new project"
-        echo -e "\t -M          : Create a new project (if it exists overwrite the older)"
-        echo -e "\t -a [name/s] : Author/s of the project"
-        echo -e "\t -p [name]   : Name of the project"
-        echo -e "\t -c [name/s] : Classes of the project"
-        echo -e " "
-        echo -e "\t ATTENTION!  For multiple arguments use quotation marks \" \" "
-        echo -e "$BAR"
-        echo -e "$BAR" 
+    h)  usage
         ;;
     l)  USR_BIN_PATH="/usr/local/bin"
         title "Creating a symbolic link to cxxlib in $USR_BIN_PATH"
-        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/getops.log 
+        sudo ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/symbolic_link.log 
         ;;
     L)  USR_BIN_PATH="$OPTARG"
         title "Creating a symbolic link to cxxlib in $USR_BIN_PATH"
-        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/getops.log 
+        sudo ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/symbolic_link.log 
         ;;
     a)  AUTHOR="$OPTARG"
         MAKE_PROJECT_CHECK=true
@@ -79,10 +72,10 @@ do
         ;;    
     m)  MAKE_PROJECT_CHECK=true
         ;;
-    :)  printf "Usage: %s: [-l] [-L args] [-m] [-M] [-h] [-a args] [-p args] [-c args] \n" $0
-        exit 2 ;;
-    \?) printf "Usage: %s: [-l] [-L args] [-m] [-M] [-h] [-a args] [-p args] [-c args] \n" $0
-        exit 2 ;;
+    :)  usage
+        ;;
+    \?) usage
+        ;;
     esac
 done
 

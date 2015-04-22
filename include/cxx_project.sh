@@ -105,3 +105,24 @@ function print_report
 	echo -e "$BAR"
 }
 export -f print_report
+
+function usage
+{
+    echo -e "$BAR"
+    echo -e "$BBAR"
+	echo -e " "
+    echo -e " FLAGS:"
+    echo -e "\t -l          : Create a symbolic link to cxxlib in /usr/local/bin"
+    echo -e "\t -L [path]   : Create a symbolic link to cxxlib in path"
+    echo -e "\t -m          : Create a new project"
+    echo -e "\t -M          : Create a new project (if it exists overwrite the older)"
+    echo -e "\t -a [name/s] : Author/s of the project"
+    echo -e "\t -p [name]   : Name of the project"
+    echo -e "\t -c [name/s] : Classes of the project"
+    echo -e " "
+    echo -e "\t ATTENTION!  For multiple arguments use quotation marks \" \" "
+	echo -e " "
+    echo -e "$BBAR"
+    echo -e "$BAR" 
+}
+export -f usage
