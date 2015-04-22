@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MAKE_PLOT_CREATOR_PATH=$(echo -e $(readlink `which make_plot`) | sed "s/make_plot.sh//")
+MAKE_PLOT_CREATOR_PATH=$(echo -e $(readlink `which easePlot`) | sed "s/easePlot.sh//")
 if [ -f $MAKE_PLOT_CREATOR_PATH ]
 then
     MAKE_PLOT_CREATOR_PATH="./"
@@ -25,8 +25,8 @@ do
     h)  echo -e "$BAR"
         echo -e "$BAR"
         echo -e " FLAGS:"
-        echo -e "\t -l        : Create a symbolic link to make_plot in /usr/local/bin"
-        echo -e "\t -L [path] : Create a symbolic link to make_plot in path"
+        echo -e "\t -l        : Create a symbolic link to easePlot in /usr/local/bin"
+        echo -e "\t -L [path] : Create a symbolic link to easePlot in path"
         echo -e "\t -g        : Generate a new .conf file in ./_conf/"
         echo -e " "
         echo -e "\t ATTENTION!  Every argument has to be included in \"...\" "
@@ -34,12 +34,12 @@ do
         echo -e "$BAR" 
         ;;
     l)  USR_BIN_PATH="/usr/local/bin"
-        title "Creating a symbolic link to make_plot in $USR_BIN_PATH"
-        ln -s $PWD/make_plot.sh $USR_BIN_PATH/make_plot 2>> $MAKE_PLOT_CREATOR_PATH/_log/getops.log 
+        title "Creating a symbolic link to easePlot in $USR_BIN_PATH"
+        ln -s $PWD/easePlot.sh $USR_BIN_PATH/easePlot 2>> $MAKE_PLOT_CREATOR_PATH/_log/getops.log 
         ;;
     L)  USR_BIN_PATH="$OPTARG"
-        title "Creating a symbolic link to make_plot in $USR_BIN_PATH"
-        ln -s $PWD/make_plot.sh $USR_BIN_PATH/make_plot 2>> $MAKE_PLOT_CREATOR_PATH/_log/getops.log 
+        title "Creating a symbolic link to easePlot in $USR_BIN_PATH"
+        ln -s $PWD/easePlot.sh $USR_BIN_PATH/easePlot 2>> $MAKE_PLOT_CREATOR_PATH/_log/getops.log 
         ;;
     g)  generate_conf
         ;;
