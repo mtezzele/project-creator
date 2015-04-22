@@ -59,8 +59,26 @@ function make_project
 
 	DATE=`date "+date: %Y-%m-%d"` 
 	TIME=`date "+time: %H:%M:%S"`
+	
 	# filesystem creation
-	mkdir $PROJECT_NAME $PROJECT_NAME/include $PROJECT_NAME/source $PROJECT_NAME/build
+	if [ ! -d "$PROJECT_NAME" ]; 
+	then
+		mkdir "$PROJECT_NAME"
+	else
+		if [ "$4" == "true" ]
+		then
+			rm -rf "$PROJECT_NAME"
+		fi
+		mkdir "$PROJECT_NAME"
+	fi
+	
+	for DIR in "$PROJECT_NAME/include" "$PROJECT_NAME/source" "$PROJECT_NAME/build"
+	do
+		if [ ! -d "$DIR" ];
+		then
+			mkdir "$DIR"
+		fi
+	done
 
 	INCLUDE=`for CLASS in $CLASSES; do echo "#include \"$CLASS.h\""; done`
 	echo -e "$INCLUDE" > "./template/include_class.tmp"
