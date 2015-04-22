@@ -3,17 +3,17 @@
 function make_main
 {
     # Generating the main.cc file
-    cat "./template/header_main.tmp"   >    $2/source/main.cc
-    cat "./template/main_1.cc"         >>   $2/source/main.cc
-    cat "./template/include_class.tmp" >>   $2/source/main.cc
-    cat "./template/main_2.cc"         >>$2/source/main.cc
+    cat "$CXXLIB_CREATOR_PATH/template/header_main.tmp"   >    $2/source/main.cc
+    cat "$CXXLIB_CREATOR_PATH/template/main_1.cc"         >>   $2/source/main.cc
+    cat "$CXXLIB_CREATOR_PATH/template/include_class.tmp" >>   $2/source/main.cc
+    cat "$CXXLIB_CREATOR_PATH/template/main_2.cc"         >>   $2/source/main.cc
 }
 export -f make_main
 
 function make_cmake
 {
     # cmake file with MPI and OMP
-    cat "./template/CMakeLists.txt" | sed "s/##PROJECT##/$1/" > $1/CMakeLists.txt
+    cat "$CXXLIB_CREATOR_PATH/template/CMakeLists.txt" | sed "s/##PROJECT##/$1/" > $1/CMakeLists.txt
 }
 export -f make_cmake
 
@@ -81,9 +81,9 @@ function make_project
 	done
 
 	INCLUDE=`for CLASS in $CLASSES; do echo "#include \"$CLASS.h\""; done`
-	echo -e "$INCLUDE" > "./template/include_class.tmp"
-	echo -e "\n/*\n * Author: $AUTHOR\n * $DATE\n * $TIME\n */ \n\n " > "./template/header_file.tmp"
-	echo -e "\n/*\n * Usage:\n * cd build\n * cmake ..\n * make\n * make run\n *\n * Description\n * Author: $AUTHOR\n * $DATE\n * $TIME\n */ \n\n " > "./template/header_main.tmp"
+	echo -e "$INCLUDE" > "$CXXLIB_CREATOR_PATH/template/include_class.tmp"
+	echo -e "\n/*\n * Author: $AUTHOR\n * $DATE\n * $TIME\n */ \n\n " > "$CXXLIB_CREATOR_PATH/template/header_file.tmp"
+	echo -e "\n/*\n * Usage:\n * cd build\n * cmake ..\n * make\n * make run\n *\n * Description\n * Author: $AUTHOR\n * $DATE\n * $TIME\n */ \n\n " > "$CXXLIB_CREATOR_PATH/template/header_main.tmp"
 
 	make_main "$HEADER" "$PROJECT_NAME"
 	for CLASS in $CLASSES

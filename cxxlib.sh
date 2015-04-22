@@ -15,7 +15,17 @@ then
 fi
 
 source "$CXXLIB_CREATOR_PATH/include/utilities.sh"
+source "$CXXLIB_CREATOR_PATH/include/color.sh"
 source "$CXXLIB_CREATOR_PATH/include/cxx_project.sh"
+
+clear
+echo -e "${HIGH_RED_COLOR}${BAR}${CLOSE_COLOR}"
+while read -r line
+do
+    name=$line
+    echo -e "${HIGH_GREEN_COLOR}$line"
+done < "$CXXLIB_CREATOR_PATH/template/title.txt"
+echo -e "\n${HIGH_RED_COLOR}${BAR}${CLOSE_COLOR}\n\n"
 
 MAKE_PROJECT_CHECK=false
 MAKE_PROJECT_OVERWRITE=false
@@ -51,13 +61,13 @@ do
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
-        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> _log/getops.log 
+        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/getops.log 
         ;;
     L)  USR_BIN_PATH="$OPTARG"
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
-        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> _log/getops.log 
+        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/getops.log 
         ;;
     a)  AUTHOR="$OPTARG"
         MAKE_PROJECT_CHECK=true
@@ -82,9 +92,7 @@ done
 
 if [ "$MAKE_PROJECT_CHECK" == true ]
 then
-    echo -e "$BAR"
-    echo -e "  CREATING THE PROJECT"
-    echo -e "$BAR"
+    title "CREATING THE PROJECT"
     make_project "$AUTHOR" "$PROJECT_NAME" "$CLASSES" "$MAKE_PROJECT_OVERWRITE"
     print_report
 fi

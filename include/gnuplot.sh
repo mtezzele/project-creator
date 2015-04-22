@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "include/utilities.sh"
+source "$MAKE_PLOT_CREATOR_PATH/utilities.sh"
 
 function plot
 {
@@ -19,9 +19,9 @@ export -f plot
 
 function generate_conf
 {
-	if [ ! -d "_conf" ]; 
+	if [ ! -d "./_conf" ]; 
 	then
-    	mkdir "_conf"
+    	mkdir "./_conf"
 	fi
 	
 	title " Auto tool to generate .conf file"
