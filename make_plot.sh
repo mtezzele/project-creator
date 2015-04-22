@@ -27,13 +27,13 @@ do
         echo -e "$BAR"
         echo -e " Creating a symbolic link to make_plot in $USR_BIN_PATH"
         echo -e "$BAR"
-        ln -s $PWD/make_plot.sh $USR_BIN_PATH/make_plot 2>> _log/getops.log 
+        ln -s $PWD/make_plot.sh $USR_BIN_PATH/make_plot 2>> $MAKE_PLOT_CREATOR_PATH/_log/getops.log 
         ;;
     L)  USR_BIN_PATH="$OPTARG"
         echo -e "$BAR"
         echo -e " Creating a symbolic link to make_plot in $USR_BIN_PATH"
         echo -e "$BAR"
-        ln -s $PWD/make_plot.sh $USR_BIN_PATH/make_plot 2>> _log/getops.log 
+        ln -s $PWD/make_plot.sh $USR_BIN_PATH/make_plot 2>> $MAKE_PLOT_CREATOR_PATH/_log/getops.log 
         ;;
     g)  generate_conf
         ;;

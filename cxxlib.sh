@@ -51,13 +51,13 @@ do
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
-        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> _log/getops.log 
+        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/getops.log 
         ;;
     L)  USR_BIN_PATH="$OPTARG"
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
-        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> _log/getops.log 
+        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/getops.log 
         ;;
     a)  AUTHOR="$OPTARG"
         MAKE_PROJECT_CHECK=true
@@ -82,9 +82,7 @@ done
 
 if [ "$MAKE_PROJECT_CHECK" == true ]
 then
-    echo -e "$BAR"
-    echo -e "  CREATING THE PROJECT"
-    echo -e "$BAR"
+    title "CREATING THE PROJECT"
     make_project "$AUTHOR" "$PROJECT_NAME" "$CLASSES" "$MAKE_PROJECT_OVERWRITE"
     print_report
 fi
