@@ -58,15 +58,11 @@ do
         echo -e "$BAR" 
         ;;
     l)  USR_BIN_PATH="/usr/local/bin"
-        echo -e "$BAR"
-        echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
-        echo -e "$BAR"
+        title "Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/getops.log 
         ;;
     L)  USR_BIN_PATH="$OPTARG"
-        echo -e "$BAR"
-        echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
-        echo -e "$BAR"
+        title "Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/getops.log 
         ;;
     a)  AUTHOR="$OPTARG"
