@@ -37,8 +37,8 @@ do
         echo -e "\t -l          : Create a symbolic link to cxxlib in /usr/local/bin"
         echo -e "\t -L [path]   : Create a symbolic link to cxxlib in path"
         echo -e "\t -m          : Create a new project"
-        echo -e "\t -a [name/s] : Author of the project"
-        echo -e "\t -p [name/s] : Name of the project"
+        echo -e "\t -a [name/s] : Author/s of the project"
+        echo -e "\t -p [name]   : Name of the project"
         echo -e "\t -c [name/s] : Classes of the project"
         echo -e " "
         echo -e "\t ATTENTION!  Every argument has to be included in \"...\" "
@@ -66,9 +66,9 @@ do
         ;;
     m)  MAKE_PROJECT_CHECK=true
         ;;
-    :)  printf "Usage: %s: [-l] [-m] \n" $0
+    :)  printf "Usage: %s: [-l] [-L args] [-m] [-h] [-a args] [-p args] [-c args] \n" $0
         exit 2 ;;
-    \?)  printf "Usage: %s: [-l] [-m] \n" $0
+    \?) printf "Usage: %s: [-l] [-L args] [-m] [-h] [-a args] [-p args] [-c args] \n" $0
         exit 2 ;;
     esac
 done
