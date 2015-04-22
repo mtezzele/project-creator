@@ -170,3 +170,20 @@ function generate_conf
 
 }
 export -f generate_conf
+
+
+function usage
+{
+	echo -e "$BAR"
+	echo -e "$BAR"
+	echo -e " FLAGS:"
+	echo -e "\t -l        : Create a symbolic link to easePlot in /usr/local/bin"
+	echo -e "\t -L [path] : Create a symbolic link to easePlot in path"
+	echo -e "\t -g        : Generate a new .conf file in ./_conf/"
+	echo -e " "
+	echo -e "\t ATTENTION!  For multiple arguments use quotation marks \" \" "
+	echo -e "$BAR"
+	echo -e "$BAR" 
+}
+export -f usage
+
