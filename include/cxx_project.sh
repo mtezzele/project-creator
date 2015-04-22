@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "include/class.sh"
+source "include/cxx_functions.sh"
 source "include/cmake.sh"
 source "include/main.sh"
 
