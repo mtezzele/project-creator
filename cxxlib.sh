@@ -18,6 +18,7 @@ source "$CXXLIB_CREATOR_PATH/include/utilities.sh"
 source "$CXXLIB_CREATOR_PATH/include/cxx_project.sh"
 
 MAKE_PROJECT_CHECK=false
+MAKE_PROJECT_OVERWRITE=false
 
 if [ ! -d "_log" ]; 
 then
@@ -28,7 +29,7 @@ AUTHOR="author"
 PROJECT_NAME="project"
 CLASSES="classes"
 
-while getopts ":lL:mha:p:c:" name
+while getopts ":lL:mMha:p:c:" name
 do
     case $name in  
     h)  echo -e "$BAR"
@@ -37,6 +38,7 @@ do
         echo -e "\t -l          : Create a symbolic link to cxxlib in /usr/local/bin"
         echo -e "\t -L [path]   : Create a symbolic link to cxxlib in path"
         echo -e "\t -m          : Create a new project"
+        echo -e "\t -M          : Create a new project (if it exists overwrite the older)"
         echo -e "\t -a [name/s] : Author/s of the project"
         echo -e "\t -p [name]   : Name of the project"
         echo -e "\t -c [name/s] : Classes of the project"
@@ -66,6 +68,9 @@ do
     c)  CLASSES="$OPTARG"   
         MAKE_PROJECT_CHECK=true
         ;;
+    M)  MAKE_PROJECT_CHECK=true
+        MAKE_PROJECT_OVERWRITE=true
+        ;;    
     m)  MAKE_PROJECT_CHECK=true
         ;;
     :)  printf "Usage: %s: [-l] [-L args] [-m] [-h] [-a args] [-p args] [-c args] \n" $0
@@ -80,7 +85,7 @@ then
     echo -e "$BAR"
     echo -e "  CREATING THE PROJECT"
     echo -e "$BAR"
-    make_project "$AUTHOR" "$PROJECT_NAME" "$CLASSES"
+    make_project "$AUTHOR" "$PROJECT_NAME" "$CLASSES" "$MAKE_PROJECT_OVERWRITE"
     print_report
 fi
 
