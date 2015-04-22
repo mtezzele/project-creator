@@ -37,9 +37,9 @@ do
         ;;
     g)  generate_conf
         ;;
-    :)  printf "Usage: %s: [-l] [-m] \n" $0
+    :)  printf "Usage: %s: [-l] [-L args] [-g] [-h] \n" $0
         exit 2 ;;
-    \?)  printf "Usage: %s: [-l] [-m] \n" $0
+    \?)  printf "Usage: %s: [-l] [-L args] [-g] [-h] \n" $0
         exit 2 ;;
     esac
 done
