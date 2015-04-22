@@ -13,8 +13,16 @@ BBAR="--------------------------------------------------------------------------
 
 function title
 {
-	echo -e "${RED_COLOR}${BAR}${CLOSE_COLOR}"
+	echo -e "${HIGH_RED_COLOR}${BAR}${CLOSE_COLOR}${GREEN_COLOR}"
 	echo -e "  ${RED_COLOR}${1}${CLOSE_COLOR}" 
-	echo -e "${RED_COLOR}${BAR}${CLOSE_COLOR}"
+	echo -e "${CLOSE_COLOR}${HIGH_RED_COLOR}${BAR}${CLOSE_COLOR}"
+}
+export -f title
+
+function sub_title
+{
+	echo -e "${HIGH_BLUE_COLOR}${BAR}${CLOSE_COLOR}"
+	echo -e "  ${BLUE_COLOR}${1}${CLOSE_COLOR}" 
+	echo -e "${HIGH_BLUE_COLOR}${BAR}${CLOSE_COLOR}"
 }
 export -f title

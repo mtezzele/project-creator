@@ -15,7 +15,17 @@ then
 fi
 
 source "$CXXLIB_CREATOR_PATH/include/utilities.sh"
+source "$CXXLIB_CREATOR_PATH/include/color.sh"
 source "$CXXLIB_CREATOR_PATH/include/cxx_project.sh"
+
+clear
+echo -e "${HIGH_RED_COLOR}${BAR}${CLOSE_COLOR}"
+while read -r line
+do
+    name=$line
+    echo -e "${HIGH_GREEN_COLOR}$line"
+done < "$CXXLIB_CREATOR_PATH/template/title.txt"
+echo -e "\n${HIGH_RED_COLOR}${BAR}${CLOSE_COLOR}\n\n"
 
 MAKE_PROJECT_CHECK=false
 MAKE_PROJECT_OVERWRITE=false
