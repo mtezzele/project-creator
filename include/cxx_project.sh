@@ -6,11 +6,23 @@ source "include/main.sh"
 
 function make_project
 {
+	AUTHOR="$1"
+	PROJECT_NAME="$2"
+	CLASSES="$3"
 	# Creation of the name of the class
-	echo 
-	read -e -p "Author: ................. " AUTHOR
-	read -e -p "Name of the project: .... " PROJECT_NAME
-	read -e -p "Name of the class: ...... " CLASSES
+	echo -e "$1 - $AUTHOR"
+	if [ "$AUTHOR" == "" ]
+	then
+		read -e -p "Author: ................. " AUTHOR
+	fi
+	if [ "$PROJECT_NAME"  == "project" ]
+	then
+		read -e -p "Name of the project: .... " PROJECT_NAME
+	fi
+	if [ "$CLASSES" == "classes" ]
+	then
+		read -e -p "Name of the class: ...... " CLASSES
+	fi
 
 	DATE=`date "+date: %Y-%m-%d"` 
 	TIME=`date "+time: %H:%M:%S"`
@@ -28,3 +40,16 @@ function make_project
 	make_cmake "$PROJECT_NAME"
 }
 export -f make_project
+
+function print_report
+{
+	echo -e "$BAR"
+	echo -e "$BBAR"
+	echo -e " REPORT"
+	echo -e " \t Author: ............. $AUTHOR"
+	echo -e " \t Project name: ....... $PROJECT_NAME"
+	echo -e " \t Classes: ............ $CLASSES"
+	echo -e "$BBAR"
+	echo -e "$BAR"
+}
+export -f print_report
