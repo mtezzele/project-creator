@@ -23,7 +23,7 @@ echo -e "${HIGH_RED_COLOR}${BAR}${CLOSE_COLOR}"
 while read -r line
 do
     name=$line
-    echo -e "${HIGH_GREEN_COLOR}$line"
+    echo -e "${HIGH_GREEN_COLOR}${line}" | tr "." " "
 done < "$CXXLIB_CREATOR_PATH/template/title_cxxlib.txt"
 echo -e "\n${HIGH_RED_COLOR}${BAR}${CLOSE_COLOR}\n\n"
 
