@@ -13,7 +13,7 @@ export -f make_main
 function make_cmake
 {
     # cmake file with MPI and OMP
-    cat "$CXXLIB_CREATOR_PATH/template/CMakeLists.txt" | sed "s/##PROJECT##/$1/" > $1/CMakeLists.txt
+    cat "$CXXLIB_CREATOR_PATH/template/CMakeLists.txt" | sed "s/##PROJECT##/$1/g" > $1/CMakeLists.txt
 }
 export -f make_cmake
 
@@ -27,14 +27,14 @@ function make_class
 	
 	# Source Files:
 	cat "template/header_file.tmp" 	> "$2/$1.cc"
-	cat "template/class.cc" | sed "s/##HEADER##/$1/" \
-							| sed "s/##CLASS##/$CLASS/" >> "$2/$1.cc"
+	cat "template/class.cc" | sed "s/##HEADER##/$1/g" \
+							| sed "s/##CLASS##/$CLASS/g" >> "$2/$1.cc"
 
 	# Header files:
 	cat "template/header_file.tmp" 	> "$3/$1.h"
 							
-	cat "template/class.h" 	| sed "s/##DEF_CLASS##/$1/" \
-							| sed "s/##CLASS##/$CLASS/" >> "$3/$1.h"
+	cat "template/class.h" 	| sed "s/##DEF_CLASS##/$1/g" \
+							| sed "s/##CLASS##/$CLASS/g" >> "$3/$1.h"
 }
 export -f make_class
 
