@@ -10,8 +10,7 @@ function make_project
 	PROJECT_NAME="$2"
 	CLASSES="$3"
 	# Creation of the name of the class
-	echo -e "$1 - $AUTHOR"
-	if [ "$AUTHOR" == "" ]
+	if [ "$AUTHOR" == "author" ]
 	then
 		read -e -p "Author: ................. " AUTHOR
 	fi
