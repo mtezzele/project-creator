@@ -19,19 +19,23 @@ do
 done < "$MAKE_PLOT_CREATOR_PATH/template/title_ease_plot.txt"
 echo -e "\n${HIGH_RED_COLOR}${BAR}${CLOSE_COLOR}\n\n"
 
+
+if [ ! -d "_log" ]; 
+then
+    mkdir "_log"
+fi
+
+
+if [ -z "$1" ]
+then
+   usage
+   exit
+fi
+
 while getopts "lL:gh" name
 do
     case $name in  
-    h)  echo -e "$BAR"
-        echo -e "$BAR"
-        echo -e " FLAGS:"
-        echo -e "\t -l        : Create a symbolic link to easePlot in /usr/local/bin"
-        echo -e "\t -L [path] : Create a symbolic link to easePlot in path"
-        echo -e "\t -g        : Generate a new .conf file in ./_conf/"
-        echo -e " "
-        echo -e "\t ATTENTION!  Every argument has to be included in \"...\" "
-        echo -e "$BAR"
-        echo -e "$BAR" 
+    h)  usage
         ;;
     l)  USR_BIN_PATH="/usr/local/bin"
         title "Creating a symbolic link to easePlot in $USR_BIN_PATH"
@@ -43,9 +47,10 @@ do
         ;;
     g)  generate_conf
         ;;
-    :)  printf "Usage: %s: [-l] [-L args] [-g] [-h] \n" $0
-        exit 2 ;;
-    \?)  printf "Usage: %s: [-l] [-L args] [-g] [-h] \n" $0
-        exit 2 ;;
+    :)  usage
+        ;;
+    \?) usage
+        ;;
     esac
 done
+
