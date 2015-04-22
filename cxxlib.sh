@@ -41,7 +41,7 @@ do
         echo -e "\t -p [name]   : Name of the project"
         echo -e "\t -c [name/s] : Classes of the project"
         echo -e " "
-        echo -e "\t ATTENTION!  Every argument has to be included in \"...\" "
+        echo -e "\t ATTENTION!  For multiple arguments use quotation marks \" \" "
         echo -e "$BAR"
         echo -e "$BAR" 
         ;;
@@ -49,20 +49,22 @@ do
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
-        ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> _log/getops.log 
+        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> _log/getops.log 
         ;;
     L)  USR_BIN_PATH="$OPTARG"
         echo -e "$BAR"
         echo -e " Creating a symbolic link to cxxlib in $USR_BIN_PATH"
         echo -e "$BAR"
-        ln -s $PWD/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> _log/getops.log 
+        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> _log/getops.log 
         ;;
     a)  AUTHOR="$OPTARG"
-        echo -e "$AUTHOR"
+        MAKE_PROJECT_CHECK=true
         ;;
     p)  PROJECT_NAME="$OPTARG"
+        MAKE_PROJECT_CHECK=true
         ;;
     c)  CLASSES="$OPTARG"   
+        MAKE_PROJECT_CHECK=true
         ;;
     m)  MAKE_PROJECT_CHECK=true
         ;;
