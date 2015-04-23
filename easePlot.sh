@@ -3,7 +3,7 @@
 MAKE_PLOT_CREATOR_PATH=$(echo -e $(readlink `which easePlot`) | sed "s/easePlot.sh//")
 if [ -f $MAKE_PLOT_CREATOR_PATH ]
 then
-    MAKE_PLOT_CREATOR_PATH="./"
+    MAKE_PLOT_CREATOR_PATH="${PWD}"
 fi
 
 source "$MAKE_PLOT_CREATOR_PATH/include/utilities.sh"
@@ -39,11 +39,11 @@ do
         ;;
     l)  USR_BIN_PATH="/usr/local/bin"
         title "Creating a symbolic link to easePlot in $USR_BIN_PATH"
-        ln -s $PWD/easePlot.sh $USR_BIN_PATH/easePlot 2>> $MAKE_PLOT_CREATOR_PATH/_log/getops.log 
+        ln -s $MAKE_PLOT_CREATOR_PATH/easePlot.sh $USR_BIN_PATH/easePlot 2>> $MAKE_PLOT_CREATOR_PATH/_log/getops.log 
         ;;
     L)  USR_BIN_PATH="$OPTARG"
         title "Creating a symbolic link to easePlot in $USR_BIN_PATH"
-        ln -s $PWD/easePlot.sh $USR_BIN_PATH/easePlot 2>> $MAKE_PLOT_CREATOR_PATH/_log/getops.log 
+        ln -s $MAKE_PLOT_CREATOR_PATH/easePlot.sh $USR_BIN_PATH/easePlot 2>> $MAKE_PLOT_CREATOR_PATH/_log/getops.log 
         ;;
     g)  generate_conf
         ;;
