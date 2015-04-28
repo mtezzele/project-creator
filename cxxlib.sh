@@ -11,7 +11,7 @@
 CXXLIB_CREATOR_PATH=$(echo -e $(readlink `which cxxlib`) | sed "s/cxxlib.sh//")
 if [ -f $CXXLIB_CREATOR_PATH ]
 then
-    CXXLIB_CREATOR_PATH="./"
+    CXXLIB_CREATOR_PATH="${PWD}"
 fi
 
 source "$CXXLIB_CREATOR_PATH/include/utilities.sh"
@@ -50,13 +50,13 @@ do
     case $name in  
     h)  usage
         ;;
-    l)  USR_BIN_PATH="/usr/local/bin"
+    l)  USR_BIN_PATH="/usr/local/bin/"
         title "Creating a symbolic link to cxxlib in $USR_BIN_PATH"
-        sudo ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/symbolic_link.log 
+        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/symbolic_link.log 
         ;;
     L)  USR_BIN_PATH="$OPTARG"
         title "Creating a symbolic link to cxxlib in $USR_BIN_PATH"
-        sudo ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/symbolic_link.log 
+        ln -s $CXXLIB_CREATOR_PATH/cxxlib.sh $USR_BIN_PATH/cxxlib 2>> ./_log/symbolic_link.log 
         ;;
     a)  AUTHOR="$OPTARG"
         MAKE_PROJECT_CHECK=true
